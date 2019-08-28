@@ -2,13 +2,14 @@
 
 namespace App\Tests\App\Controller;
 
+
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 /**
- * Class DefaultControllerTest
+ * Class SecurityControllerTest
  * @package App\Tests\App\Controller
  */
-class DefaultControllerTest extends WebTestCase
+class SecurityControllerTest extends WebTestCase
 {
     /**
      * @var \Symfony\Bundle\FrameworkBundle\KernelBrowser
@@ -20,30 +21,24 @@ class DefaultControllerTest extends WebTestCase
         $this->client = static::createClient();
     }
 
-    public function testIndexWithoutAuthorizedUser()
-    {
-        $crawler = $this->client->request('GET', '/');
-        $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
-    }
-
-    public function testIndexWithAuthorizedUser()
-    {
-        $this->loginWithUserClient();
-
-        $crawler = $this->client->request('GET', '/');
-
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
-        $this->assertContains('To Do List app', $crawler->filter('a')->text());
-    }
-
-    protected function loginWithUserClient()
+    public function testLoginAction()
     {
         $this->client->followRedirects();
+
         $crawler = $this->client->request('GET', '/login');
         $crawler = $this->client->submitForm('Se connecter', [
             '_username' => 'david',
             '_password' => 'evdbevdb'
         ]);
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+    }
+
+    public function testLogoutCheck()
+    {
+        $this->client->followRedirects();
+
+        $crawler = $this->client->request('GET', '/logout');
+        $this->assertResponseIsSuccessful();
+        $this->assertContains('Se connecter', $crawler->filter('button')->text());
     }
 }
