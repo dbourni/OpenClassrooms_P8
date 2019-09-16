@@ -99,7 +99,7 @@ class Task
 
     public function getUser(): ?User
     {
-        if (null == $this->user) {
+        if (null === $this->user) {
             $userAnonymous = new User();
             $userAnonymous->setUsername('Anonyme');
             $userAnonymous->setEmail('anonyme@anonyme.com');
