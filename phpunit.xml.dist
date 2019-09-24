@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<<<<<<< HEAD
 <!-- https://phpunit.de/manual/current/en/appendixes.configuration.html -->
+=======
+<!-- https://phpunit.readthedocs.io/en/latest/configuration.html -->
+>>>>>>> develop
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/6.5/phpunit.xsd"
          backupGlobals="false"
@@ -12,7 +16,11 @@
         <server name="APP_ENV" value="test" force="true" />
         <server name="SHELL_VERBOSITY" value="-1" />
         <server name="SYMFONY_PHPUNIT_REMOVE" value="" />
+<<<<<<< HEAD
         <server name="SYMFONY_PHPUNIT_VERSION" value="6.5" />
+=======
+        <server name="SYMFONY_PHPUNIT_VERSION" value="7.5" />
+>>>>>>> develop
     </php>
 
     <testsuites>
@@ -24,6 +32,14 @@
     <filter>
         <whitelist>
             <directory>src</directory>
+<<<<<<< HEAD
+=======
+            <exclude>
+                <directory>src/Migrations</directory>
+                <directory>src/Security</directory>
+                <file>src/kernel.php</file>
+            </exclude>
+>>>>>>> develop
         </whitelist>
     </filter>
 

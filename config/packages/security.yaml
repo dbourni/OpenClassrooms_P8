@@ -1,13 +1,43 @@
 security:
+<<<<<<< HEAD
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
         in_memory: { memory: null }
+=======
+    encoders:
+        App\Entity\User:
+            algorithm: bcrypt
+    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    providers:
+        # used to reload user from session & other features (e.g. switch_user)
+        app_user_provider:
+            entity:
+                class: App\Entity\User
+                property: username
+>>>>>>> develop
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
+<<<<<<< HEAD
             anonymous: true
+=======
+            anonymous: ~
+#            pattern: ^/
+#            guard:
+#                authenticators:
+#                    - App\Security\LoginFormAuthenticator
+
+            form_login:
+                login_path: login
+                check_path: login_check
+#                always_use_default_target_path:  true
+#                default_target_path:  /
+
+            logout:
+                path: logout
+>>>>>>> develop
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
@@ -15,8 +45,20 @@ security:
             # https://symfony.com/doc/current/security/impersonating_user.html
             # switch_user: true
 
+<<<<<<< HEAD
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
+=======
+    role_hierarchy:
+        ROLE_ADMIN:     ROLE_USER
+
+    # Easy way to control access for large sections of your site
+    # Note: Only the *first* access control that matches will be used
+    access_control:
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/users, roles: ROLE_ADMIN }
+        - { path: ^/, roles: ROLE_USER }
+>>>>>>> develop
